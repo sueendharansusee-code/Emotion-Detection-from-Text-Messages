@@ -1,0 +1,121 @@
+text,emotion
+"I am so excited and happy about the promotion today!",Happy
+"Best day ever! Everything went perfectly.",Happy
+"I love spending time with my wonderful family.",Happy
+"Congratulations on your amazing success!",Happy
+"This news brought a huge smile to my face.",Happy
+"Having a fantastic time at the beach!",Happy
+"I feel so grateful and blessed for this life.",Happy
+"Truly delightful experience, would recommend to everyone.",Happy
+"Wonderful work team, we achieved our goal!",Happy
+"I'm thrilled to join the team next week!",Happy
+"Loving this beautiful sunny morning so much.",Happy
+"What a pleasant surprise to see you today!",Happy
+"So joyous to celebrate this special moment together.",Happy
+"Heartwarming news, I'm overjoyed for you both.",Happy
+"Great job on completing the project ahead of schedule!",Happy
+"I am cheerful and full of positive energy today.",Happy
+"Feeling ecstatic and blessed beyond words.",Happy
+"Such a joyful celebration with great friends.",Happy
+"Winning this award makes me feel super happy!",Happy
+"Life is wonderful and everything is great.",Happy
+"I feel so lonely, hopeless and heartbroken today.",Sad
+"It breaks my heart to see everything fall apart.",Sad
+"I am really feeling down and depressed lately.",Sad
+"Miss you so much, it hurts deeply inside.",Sad
+"So disappointed with how things turned out.",Sad
+"Crying all night because of this awful situation.",Sad
+"Losing my best friend was the worst thing ever.",Sad
+"Everything feels empty and meaningless right now.",Sad
+"Sad to hear about the bad news this morning.",Sad
+"I failed the test and I feel so hopeless.",Sad
+"Feeling miserable and filled with sorrow today.",Sad
+"It's hard to cope with this terrible grief.",Sad
+"Regretting my past mistakes, so full of sorrow.",Sad
+"Unhappy with the result, feeling utterly exhausted.",Sad
+"My heart is heavy with sadness after hearing this.",Sad
+"Tears in my eyes, feeling completely broken.",Sad
+"Feeling gloomy, depressed and abandoned.",Sad
+"A overwhelming feeling of melancholy and sadness.",Sad
+"I am so demoralized and sad about this failure.",Sad
+"Sorrowful news that makes me feel miserable.",Sad
+"I am extremely furious and angry at your behavior!",Angry
+"Stop lying to me, this is unacceptable and infuriating!",Angry
+"I hate when people disrespect me like this!",Angry
+"This service is absolute garbage, I am outraged!",Angry
+"Mind your own business and leave me alone!",Angry
+"So frustrated with this ridiculous delay and incompetence!",Angry
+"How dare you betray my trust like that!",Angry
+"I can't take this anymore, it makes my blood boil!",Angry
+"Disgusted and annoyed by your rude remarks.",Angry
+"Shut up and get out of my face right now!",Angry
+"Total waste of my time, I am so irritated.",Angry
+"Why do you always ruin everything, you idiot!",Angry
+"Furious about the unfair treatment at work today.",Angry
+"This insolence is completely unacceptable!",Angry
+"Sick and tired of dealing with your nonsense!",Angry
+"I am boiling with anger and resentment right now.",Angry
+"Your offensive words make me extremely mad!",Angry
+"This incompetence makes me so angry and furious.",Angry
+"Fuming with rage over this absurd decision!",Angry
+"Raging mad at the awful customer service.",Angry
+"I am terrified of walking alone in the dark.",Fear
+"Panicking because I heard strange footsteps outside.",Fear
+"Scared that I won't pass this critical exam tomorrow.",Fear
+"Terrifying experience, I was shaking with fear.",Fear
+"Frightened by the loud thunder and storm outside.",Fear
+"I'm really anxious and worried about the medical report.",Fear
+"Dreadful feeling that something horrible is about to happen.",Fear
+"Afraid of losing my job during these tough times.",Fear
+"Trembling with fear during the earthquake last night.",Fear
+"Spooked by the eerie noise in the basement.",Fear
+"Nervous and terrified about speaking in public.",Fear
+"Horrified by the dangerous situation on the road.",Fear
+"Afraid to take a risk after what happened last time.",Fear
+"Worried sick about the upcoming surgery results.",Fear
+"Paralyzed by fear when the alarm suddenly started ringing.",Fear
+"I am scared, fearful and panicking uncontrollably.",Fear
+"Frightening thoughts keeping me awake at night.",Fear
+"Terrified of heights and feeling dizzy.",Fear
+"Feeling insecure and fearful about the unknown future.",Fear
+"Alarmed and afraid of the dangerous threat.",Fear
+"Wow, I cannot believe you pulled off this secret party!",Surprise
+"Totally shocked and amazed by this unexpected gift!",Surprise
+"Incredible! I never saw that coming at all!",Surprise
+"Astonished by the sudden turn of events!",Surprise
+"Unbelievable! Did we really win first prize?",Surprise
+"Whoa, that performance left me completely speechless!",Surprise
+"What an unbelievable revelation, I am blown away!",Surprise
+"Mind-blowing news! I'm genuinely shocked!",Surprise
+"Astounded to hear that you got married!",Surprise
+"Oh my goodness! Is this really happening?",Surprise
+"Unexpected surprise delivered right to my doorstep!",Surprise
+"Astonishing discovery made by the research team!",Surprise
+"What a bizarre and unexpected plot twist in the movie!",Surprise
+"Stunned by the extraordinary talent on display!",Surprise
+"Holy cow, that was the most shocking news ever!",Surprise
+"Surprised beyond belief by the grand announcement!",Surprise
+"Startled by the sudden loud noise behind me!",Surprise
+"What a pleasant surprise to bump into you here!",Surprise
+"A sudden unexpected twist that took everyone by surprise.",Surprise
+"Astonishing speed and accuracy, completely unexpected!",Surprise
+"The meeting is scheduled for tomorrow morning at 10 AM.",Neutral
+"Please send me the updated project document when ready.",Neutral
+"The train arrives at platform number 3 on time.",Neutral
+"I will buy groceries on my way back home today.",Neutral
+"The report contains five sections discussing quarterly results.",Neutral
+"Office hours are from 9 AM to 5 PM Monday through Friday.",Neutral
+"Attached is the file you requested yesterday afternoon.",Neutral
+"Weather forecast predicts mild temperatures for this weekend.",Neutral
+"The package was delivered to the front desk.",Neutral
+"Please review the agenda before attending the conference.",Neutral
+"Water boils at 100 degrees Celsius under standard pressure.",Neutral
+"The library remains open until 8 PM every evening.",Neutral
+"We need to update the software installation instructions.",Neutral
+"The bus route has been changed due to road maintenance.",Neutral
+"A standard table consists of rows and columns.",Neutral
+"Confirming receipt of your email and documents.",Neutral
+"The store is open from Monday to Saturday.",Neutral
+"Here is the link to the online documentation.",Neutral
+"The conference call start time is 2 PM EST.",Neutral
+"Please find the summary of the meeting attached.",Neutral

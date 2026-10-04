@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Detection from Text Messages</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-brand">
+                <i class="fa-solid fa-brain-circuit brand-icon"></i>
+                <div>
+                    <h1>Emotion Detection from Text Messages</h1>
+                    <p class="header-subtitle">NLP & Machine Learning Powered Text Emotion Analyzer</p>
+                </div>
+            </div>
+            <div class="disclaimer-badge" title="Psychological Notice">
+                <i class="fa-solid fa-shield-halved"></i>
+                <span>Classifies expressed textual emotion only</span>
+            </div>
+        </header>
+
+        <!-- Dashboard Stat Cards -->
+        <section class="stats-overview" id="statsOverview">
+            <div class="stat-card">
+                <div class="stat-icon bg-primary"><i class="fa-solid fa-message"></i></div>
+                <div class="stat-info">
+                    <span class="stat-value" id="statTotalAnalyzed">0</span>
+                    <span class="stat-label">Messages Analyzed</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon bg-success"><i class="fa-solid fa-crown"></i></div>
+                <div class="stat-info">
+                    <span class="stat-value" id="statTopEmotion">-</span>
+                    <span class="stat-label">Dominant Emotion</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon bg-warning"><i class="fa-solid fa-chart-line"></i></div>
+                <div class="stat-info">
+                    <span class="stat-value" id="statAvgConfidence">0%</span>
+                    <span class="stat-label">Avg Confidence Score</span>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon bg-info"><i class="fa-solid fa-tags"></i></div>
+                <div class="stat-info">
+                    <span class="stat-value">6 Categories</span>
+                    <span class="stat-label">Supported Emotions</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content Area -->
+        <main class="main-grid">
+            <!-- Input & Sample Presets Section -->
+            <section class="card input-card">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-pen-to-square"></i> Input Text Message</h2>
+                    <span class="live-counter" id="liveCounter">0 chars | 0 words</span>
+                </div>
+                <div class="card-body">
+                    <!-- Preset Sample Chips -->
+                    <div class="sample-presets">
+                        <span class="preset-title"><i class="fa-solid fa-wand-magic-sparkles"></i> Try Sample Messages:</span>
+                        <div class="sample-chips" id="sampleChips">
+                            <button class="chip chip-happy" onclick="loadSample('Happy')">😊 Happy</button>
+                            <button class="chip chip-sad" onclick="loadSample('Sad')">😢 Sad</button>
+                            <button class="chip chip-angry" onclick="loadSample('Angry')">😡 Angry</button>
+                            <button class="chip chip-fear" onclick="loadSample('Fear')">😨 Fear</button>
+                            <button class="chip chip-surprise" onclick="loadSample('Surprise')">😲 Surprise</button>
+                            <button class="chip chip-neutral" onclick="loadSample('Neutral')">😐 Neutral</button>
+                        </div>
+                    </div>
+
+                    <!-- Textarea & Alert -->
+                    <div class="form-group">
+                        <textarea id="textInput" placeholder="Type or paste your text message here... (e.g. 'I am so happy and excited about the new project!')" rows="5"></textarea>
+                        <div class="validation-error" id="validationError" style="display: none;">
+                            <i class="fa-solid fa-circle-exclamation"></i> <span id="errorMessage">Please enter a text message to analyze.</span>
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="action-bar">
+                        <button class="btn btn-primary" id="analyzeBtn" onclick="analyzeText()">
+                            <i class="fa-solid fa-magnifying-glass-chart" id="btnIcon"></i>
+                            <span id="btnText">Analyze Emotion</span>
+                        </button>
+                        <button class="btn btn-secondary" onclick="clearInput()">
+                            <i class="fa-solid fa-eraser"></i> Clear Text
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analysis Output & Visualizations -->
+            <section class="card result-card" id="resultCard">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-square-poll-vertical"></i> Analysis Results</h2>
+                    <button class="btn-icon" id="copyBtn" onclick="copyResult()" title="Copy Result Summary" style="display: none;">
+                        <i class="fa-solid fa-copy"></i> Copy Result
+                    </button>
+                </div>
+                <div class="card-body">
+                    <!-- Placeholder state -->
+                    <div class="empty-state" id="emptyState">
+                        <i class="fa-solid fa-face-smile-wink empty-icon"></i>
+                        <h3>No Text Analyzed Yet</h3>
+                        <p>Enter a message above or click a sample to view emotion prediction, confidence score, text statistics, and probability distribution.</p>
+                    </div>
+
+                    <!-- Result content -->
+                    <div class="result-content" id="resultContent" style="display: none;">
+                        <!-- Primary Emotion Banner -->
+                        <div class="prediction-banner" id="predictionBanner">
+                            <div class="emotion-header">
+                                <span class="emotion-emoji" id="emotionEmoji">😊</span>
+                                <div class="emotion-details">
+                                    <span class="prediction-label">Expressed Emotion</span>
+                                    <h3 class="predicted-emotion-name" id="predictedEmotion">Happy</h3>
+                                </div>
+                            </div>
+                            <div class="confidence-box">
+                                <span class="confidence-title">Confidence</span>
+                                <span class="confidence-value" id="confidenceValue">95.4%</span>
+                            </div>
+                        </div>
+
+                        <!-- Mandatory Psychological Disclaimer Alert -->
+                        <div class="alert-disclaimer">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <span id="disclaimerText">The predicted emotion represents the emotion expressed in the text message and does not determine a person's actual psychological or mental state.</span>
+                        </div>
+
+                        <!-- Text Statistics Grid -->
+                        <div class="stats-grid">
+                            <div class="stat-box">
+                                <span class="stat-box-label"><i class="fa-solid fa-font"></i> Characters</span>
+                                <span class="stat-box-value" id="statCharCount">0</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-box-label"><i class="fa-solid fa-paragraph"></i> Words</span>
+                                <span class="stat-box-value" id="statWordCount">0</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-box-label"><i class="fa-solid fa-ruler-horizontal"></i> Avg Word Len</span>
+                                <span class="stat-box-value" id="statAvgWordLen">0</span>
+                            </div>
+                            <div class="stat-box">
+                                <span class="stat-box-label"><i class="fa-solid fa-fingerprint"></i> Unique Words</span>
+                                <span class="stat-box-value" id="statUniqueWords">0</span>
+                            </div>
+                        </div>
+
+                        <!-- Emotion Probability Distribution Chart -->
+                        <div class="chart-container">
+                            <h4><i class="fa-solid fa-chart-bar"></i> Category Probability Breakdown</h4>
+                            <canvas id="probabilityChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Secondary Grid: Dashboard Distribution & Analysis History -->
+        <section class="secondary-grid">
+            <!-- Historical Distribution Chart -->
+            <div class="card">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-chart-pie"></i> Historical Emotion Distribution</h2>
+                </div>
+                <div class="card-body">
+                    <div class="chart-container pie-container">
+                        <canvas id="historyDistributionChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analysis History Log -->
+            <div class="card history-card">
+                <div class="card-header">
+                    <h2><i class="fa-solid fa-clock-rotate-left"></i> Analysis History</h2>
+                    <div class="history-actions">
+                        <select id="emotionFilter" class="filter-select" onchange="filterHistory()">
+                            <option value="All">All Emotions</option>
+                            <option value="Happy">Happy</option>
+                            <option value="Sad">Sad</option>
+                            <option value="Angry">Angry</option>
+                            <option value="Fear">Fear</option>
+                            <option value="Surprise">Surprise</option>
+                            <option value="Neutral">Neutral</option>
+                        </select>
+                        <button class="btn btn-outline-danger" onclick="confirmClearHistory()" title="Clear All History">
+                            <i class="fa-solid fa-trash-can"></i> Clear
+                        </button>
+                    </div>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="history-table" id="historyTable">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Message Snippet</th>
+                                    <th>Expressed Emotion</th>
+                                    <th>Confidence</th>
+                                    <th>Words</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historyTableBody">
+                                <tr>
+                                    <td colspan="5" class="text-center">No history logs available.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Confirmation Modal for Clear History -->
+        <div class="modal-backdrop" id="clearModal" style="display: none;">
+            <div class="modal-box">
+                <div class="modal-header">
+                    <i class="fa-solid fa-triangle-exclamation modal-warning-icon"></i>
+                    <h3>Clear Analysis History</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to permanently delete all saved text analysis records?</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" onclick="closeClearModal()">Cancel</button>
+                    <button class="btn btn-danger" onclick="executeClearHistory()">Yes, Clear History</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast Feedback Notification -->
+        <div class="toast" id="toastNotification">
+            <i class="fa-solid fa-check-circle toast-icon"></i>
+            <span id="toastMessage">Result copied to clipboard!</span>
+        </div>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Emotion Detection from Text Messages &copy; 2026 | Built with Flask, NLTK, Scikit-Learn & Chart.js</p>
+        </footer>
+    </div>
+
+    <!-- Application JavaScript -->
+    <script src="{{ url_for('static', filename='js/charts.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
